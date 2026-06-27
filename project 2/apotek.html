@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Apotek Sederhana</title>
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial, sans-serif;
+}
+
+body{
+    background:#e8f5e9;
+}
+
+.container{
+    width:400px;
+    margin:40px auto;
+    background:white;
+    border-radius:15px;
+    padding:25px;
+    box-shadow:0 5px 15px rgba(0,0,0,.2);
+}
+
+h2{
+    text-align:center;
+    color:#2e7d32;
+    margin-bottom:20px;
+}
+
+label{
+    font-weight:bold;
+    color:#444;
+}
+
+input,select{
+    width:100%;
+    padding:10px;
+    margin:8px 0 15px;
+    border:1px solid #ccc;
+    border-radius:8px;
+    font-size:15px;
+}
+
+button{
+    width:48%;
+    padding:12px;
+    border:none;
+    border-radius:8px;
+    color:white;
+    font-size:15px;
+    cursor:pointer;
+}
+
+.btn{
+    background:#2e7d32;
+}
+
+.reset{
+    background:#e53935;
+    float:right;
+}
+
+button:hover{
+    opacity:0.9;
+}
+
+.hasil{
+    margin-top:25px;
+    background:#f1f8e9;
+    padding:15px;
+    border-radius:10px;
+}
+
+.hasil h3{
+    color:#2e7d32;
+    margin-bottom:10px;
+}
+
+#total{
+    color:#1b5e20;
+}
+</style>
+
+</head>
+<body>
+
+<div class="container">
+
+<h2>💊 Apotek Sederhana</h2>
+
+<label>Nama Pembeli</label>
+<input type="text" id="nama" placeholder="Masukkan nama">
+
+<label>Pilih Obat</label>
+
+<select id="obat">
+<option value="5000">Paracetamol - Rp5.000</option>
+<option value="12000">Amoxicillin - Rp12.000</option>
+<option value="10000">Vitamin C - Rp10.000</option>
+<option value="15000">OBH Combi - Rp15.000</option>
+<option value="8000">Bodrex - Rp8.000</option>
+</select>
+
+<label>Jumlah</label>
+<input type="number" id="jumlah" min="1" placeholder="Jumlah obat">
+
+<button class="btn" onclick="hitung()">Bayar</button>
+<button class="reset" onclick="resetForm()">Reset</button>
+
+<div class="hasil">
+
+<h3>Struk Pembelian</h3>
+
+<p id="namaOut">Nama : -</p>
+<p id="obatOut">Obat : -</p>
+<p id="jumlahOut">Jumlah : -</p>
+<p id="diskonOut">Diskon : -</p>
+<h2 id="total">Total : Rp0</h2>
+
+</div>
+
+</div>
+
+<script>
+
+function hitung(){
+
+let nama=document.getElementById("nama").value;
+let obat=document.getElementById("obat");
+let harga=parseInt(obat.value);
+let namaObat=obat.options[obat.selectedIndex].text;
+let jumlah=parseInt(document.getElementById("jumlah").value);
+
+if(nama=="" || isNaN(jumlah) || jumlah<=0){
+alert("Lengkapi data terlebih dahulu!");
+return;
+}
+
+let total=harga*jumlah;
+let diskon=0;
+
+if(total>=100000){
+diskon=total*0.05;
+}
+
+let bayar=total-diskon;
+
+document.getElementById("namaOut").innerHTML="Nama : "+nama;
+document.getElementById("obatOut").innerHTML="Obat : "+namaObat;
+document.getElementById("jumlahOut").innerHTML="Jumlah : "+jumlah;
+document.getElementById("diskonOut").innerHTML="Diskon : Rp"+diskon.toLocaleString("id-ID");
+document.getElementById("total").innerHTML="Total Bayar : Rp"+bayar.toLocaleString("id-ID");
+
+}
+
+function resetForm(){
+
+document.getElementById("nama").value="";
+document.getElementById("jumlah").value="";
+document.getElementById("obat").selectedIndex=0;
+
+document.getElementById("namaOut").innerHTML="Nama : -";
+document.getElementById("obatOut").innerHTML="Obat : -";
+document.getElementById("jumlahOut").innerHTML="Jumlah : -";
+document.getElementById("diskonOut").innerHTML="Diskon : -";
+document.getElementById("total").innerHTML="Total : Rp0";
+
+}
+
+</script>
+
+</body>
+</html>

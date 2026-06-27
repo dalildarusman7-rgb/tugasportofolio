@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Toko Buku Online</title>
+
+<style>
+body{
+    font-family: Arial, sans-serif;
+    background:#f2f2f2;
+    margin:0;
+    padding:20px;
+}
+
+.container{
+    max-width:450px;
+    margin:auto;
+    background:#fff;
+    padding:20px;
+    border-radius:10px;
+    box-shadow:0 0 10px rgba(0,0,0,0.2);
+}
+
+h2{
+    text-align:center;
+    color:#333;
+}
+
+label{
+    font-weight:bold;
+}
+
+input, select{
+    width:100%;
+    padding:10px;
+    margin:8px 0 15px;
+    border:1px solid #ccc;
+    border-radius:5px;
+    box-sizing:border-box;
+}
+
+button{
+    width:48%;
+    padding:10px;
+    border:none;
+    border-radius:5px;
+    color:white;
+    cursor:pointer;
+    font-size:16px;
+}
+
+.btn-beli{
+    background:#28a745;
+}
+
+.btn-reset{
+    background:#dc3545;
+    float:right;
+}
+
+.hasil{
+    margin-top:20px;
+    background:#f9f9f9;
+    padding:15px;
+    border-radius:5px;
+}
+</style>
+
+</head>
+<body>
+
+<div class="container">
+
+<h2>Toko Buku Online</h2>
+
+<label>Nama Pembeli</label>
+<input type="text" id="nama" placeholder="Masukkan nama">
+
+<label>Pilih Buku</label>
+<select id="buku">
+    <option value="85000">Laskar Pelangi - Rp85.000</option>
+    <option value="95000">Bumi - Rp95.000</option>
+    <option value="120000">Atomic Habits - Rp120.000</option>
+    <option value="100000">Filosofi Teras - Rp100.000</option>
+</select>
+
+<label>Jumlah Buku</label>
+<input type="number" id="jumlah" min="1" placeholder="Masukkan jumlah">
+
+<button class="btn-beli" onclick="beli()">Beli</button>
+<button class="btn-reset" onclick="resetForm()">Reset</button>
+
+<div class="hasil">
+<h3>Struk Pembelian</h3>
+
+<p id="outNama">Nama : -</p>
+<p id="outBuku">Buku : -</p>
+<p id="outJumlah">Jumlah : -</p>
+<p id="outDiskon">Diskon : -</p>
+<h3 id="outTotal">Total : Rp0</h3>
+
+</div>
+
+</div>
+
+<script>
+
+function beli(){
+
+let nama=document.getElementById("nama").value;
+let buku=document.getElementById("buku");
+let harga=parseInt(buku.value);
+let namaBuku=buku.options[buku.selectedIndex].text;
+let jumlah=parseInt(document.getElementById("jumlah").value);
+
+if(nama=="" || isNaN(jumlah) || jumlah<=0){
+    alert("Lengkapi data terlebih dahulu!");
+    return;
+}
+
+let total=harga*jumlah;
+let diskon=0;
+
+if(total>=300000){
+    diskon=total*0.1;
+}
+
+let bayar=total-diskon;
+
+document.getElementById("outNama").innerHTML="Nama : "+nama;
+document.getElementById("outBuku").innerHTML="Buku : "+namaBuku;
+document.getElementById("outJumlah").innerHTML="Jumlah : "+jumlah;
+document.getElementById("outDiskon").innerHTML="Diskon : Rp"+diskon.toLocaleString("id-ID");
+document.getElementById("outTotal").innerHTML="Total Bayar : Rp"+bayar.toLocaleString("id-ID");
+
+}
+
+function resetForm(){
+
+document.getElementById("nama").value="";
+document.getElementById("jumlah").value="";
+document.getElementById("buku").selectedIndex=0;
+
+document.getElementById("outNama").innerHTML="Nama : -";
+document.getElementById("outBuku").innerHTML="Buku : -";
+document.getElementById("outJumlah").innerHTML="Jumlah : -";
+document.getElementById("outDiskon").innerHTML="Diskon : -";
+document.getElementById("outTotal").innerHTML="Total : Rp0";
+
+}
+
+</script>
+
+</body>
+</html>

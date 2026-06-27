@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <title>Food Order Online</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: linear-gradient(135deg, #f39c12, #d35400);
+      color: #fff;
+      margin: 0;
+      padding: 0;
+    }
+    header {
+      text-align: center;
+      padding: 20px;
+      background: #c0392b;
+    }
+    header h1 {
+      margin: 0;
+    }
+    .container {
+      max-width: 600px;
+      margin: 30px auto;
+      background: rgba(255,255,255,0.1);
+      padding: 20px;
+      border-radius: 10px;
+    }
+    label {
+      display: block;
+      margin-top: 10px;
+      font-weight: bold;
+    }
+    input, select {
+      width: 100%;
+      padding: 8px;
+      margin-top: 5px;
+      border-radius: 5px;
+      border: none;
+    }
+    button {
+      margin-top: 15px;
+      padding: 10px 15px;
+      background: #27ae60;
+      color: #fff;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 16px;
+    }
+    button:hover {
+      background: #2ecc71;
+    }
+    .receipt {
+      margin-top: 20px;
+      padding: 15px;
+      background: #2c3e50;
+      border-radius: 8px;
+    }
+    .receipt h2 {
+      margin-top: 0;
+      color: #f1c40f;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>🍴 Food Order Online</h1>
+  </header>
+  <div class="container">
+    <form id="orderForm">
+      <label>Nama Pembeli:</label>
+      <input type="text" id="nama" required>
+
+      <label>Pilih Menu:</label>
+      <select id="menu">
+        <option value="Burger">Burger - Rp25.000</option>
+        <option value="Pizza">Pizza - Rp50.000</option>
+        <option value="Nasi Goreng">Nasi Goreng - Rp20.000</option>
+      </select>
+
+      <label>Jumlah Pesanan:</label>
+      <input type="number" id="jumlah" min="1" value="1" required>
+
+      <button type="button" onclick="proses()">Pesan</button>
+      <button type="reset">Reset</button>
+    </form>
+
+    <div class="receipt" id="output" style="display:none;">
+      <h2>🧾 Struk Pesanan</h2>
+      <p id="detail"></p>
+    </div>
+  </div>
+
+  <script>
+    function proses() {
+      const nama = document.getElementById("nama").value;
+      const menu = document.getElementById("menu").value;
+      const jumlah = parseInt(document.getElementById("jumlah").value);
+
+      let harga = 0;
+      if (menu === "Burger") harga = 25000;
+      else if (menu === "Pizza") harga = 50000;
+      else if (menu === "Nasi Goreng") harga = 20000;
+
+      let total = harga * jumlah;
+
+      // Diskon: beli >=5 item dapat potongan 15%
+      let diskon = 0;
+      if (jumlah >= 5) {
+        diskon = total * 0.15;
+        total -= diskon;
+      }
+
+      const detail = `
+        Nama: ${nama}<br>
+        Menu: ${menu}<br>
+        Jumlah: ${jumlah}<br>
+        Diskon: Rp${diskon}<br>
+        Total Bayar: Rp${total}
+      `;
+
+      document.getElementById("detail").innerHTML = detail;
+      document.getElementById("output").style.display = "block";
+    }
+  </script>
+</body>
+</html>
